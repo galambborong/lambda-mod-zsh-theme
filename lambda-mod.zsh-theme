@@ -10,15 +10,18 @@ function check_git_prompt_info() {
     if type git &>/dev/null && git rev-parse --git-dir > /dev/null 2>&1; then
         if [[ -z $(git_prompt_info 2> /dev/null) ]]; then
             echo "%{$fg[blue]%}detached-head%{$reset_color%}) $(git_prompt_status)
-%{$fg[yellow]%}→ "
+%{$fg[yellow]%}-> "
         else
             echo "$(git_prompt_info 2> /dev/null) $(git_prompt_status)
-%{$fg_bold[cyan]%}→ "
+%{$fg_bold[cyan]%}-> "
         fi
     else
-        echo "%{$fg_bold[cyan]%}→ "
+        echo "%{$fg_bold[cyan]%}-> "
     fi
 }
+
+# NB the '->' presumes use of a Nerd Font with glyphs, but this can be changed
+# to whatever ($ is the norm)
 
 function get_right_prompt() {
     if type git &>/dev/null && git rev-parse --git-dir > /dev/null 2>&1; then
@@ -29,7 +32,7 @@ function get_right_prompt() {
 }
 
 PROMPT=$'\n'$LAMBDA'\
- %{$fg_bold[$USERCOLOR]%}%n\
+ %{$fg_bold[$USERCOLOR]%}%n@%m\
  %{$fg_no_bold[magenta]%}[%'${LAMBDA_MOD_N_DIR_LEVELS:-3}'~]\
  $(check_git_prompt_info)\
 %{$reset_color%}'
@@ -37,10 +40,10 @@ PROMPT=$'\n'$LAMBDA'\
 RPROMPT='$(get_right_prompt)'
 
 # Format for git_prompt_info()
-ZSH_THEME_GIT_PROMPT_PREFIX="at %{$fg[blue]%} "
+ZSH_THEME_GIT_PROMPT_PREFIX="at %{$fg[blue]%}\ue0a0 "
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY=""
-ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%} ✔"
+ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%} ✔ "
 
 # Format for git_prompt_status()
 ZSH_THEME_GIT_PROMPT_ADDED="%{$fg_bold[green]%}+"
