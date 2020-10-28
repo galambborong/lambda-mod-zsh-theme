@@ -16,12 +16,12 @@ function check_git_prompt_info() {
 %{$fg_bold[cyan]%}-> "
         fi
     else
-        echo "%{$fg_bold[cyan]%}-> "
+        echo "%{$fg_bold[cyan]%}$ "
     fi
 }
 
 # NB the '->' presumes use of a Nerd Font with glyphs, but this can be changed
-# to whatever ($ is the norm)
+# to whatever. 
 
 function get_right_prompt() {
     if type git &>/dev/null && git rev-parse --git-dir > /dev/null 2>&1; then
@@ -60,3 +60,4 @@ ZSH_THEME_GIT_PROMPT_AHEAD=" %{$fg_bold[white]%}^"
 # Format for git_prompt_long_sha() and git_prompt_short_sha()
 ZSH_THEME_GIT_PROMPT_SHA_BEFORE=" %{$fg_bold[white]%}[%{$fg_bold[blue]%}"
 ZSH_THEME_GIT_PROMPT_SHA_AFTER="%{$fg_bold[white]%}]"
+
